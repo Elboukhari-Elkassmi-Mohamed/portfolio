@@ -6,6 +6,8 @@ const cookies = require("cookie-parser");
 const cors = require('cors')
 
 const authRouter = require("./routers/authRoute");
+const skillsRouter = require("./routers/skillsRoute");
+
 
 const errorHandler = require("./middleware/errorHandler");
 
@@ -18,6 +20,8 @@ app.use(express.json());
 
 
 app.use("/api/auth", authRouter);
+app.use("/api/skills", skillsRouter);
+
 
 
 // app.use("/api/user",userRouter);

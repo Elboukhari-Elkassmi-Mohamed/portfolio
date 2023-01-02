@@ -9,6 +9,7 @@ import One from "./Pages/admin/sectionOne/One";
 import CreateOne from "./Pages/admin/sectionOne/CreateOne"
 import Dashboard from "./Pages/admin/Dashboard";
 import Protected from "./util/Protected";
+import Home from "./Pages/Home"
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
               </Route>
             </Route>
             <Route path="/admin/login" element={<Login />} />
+            <Route path="/" element={<Home/>} />
+
 
             <Route path="*" element={<p>There's nothing here: 404!</p>} />
           </Routes>

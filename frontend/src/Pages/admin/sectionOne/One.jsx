@@ -1,8 +1,34 @@
 import { Link } from "react-router-dom";
 import '../../../css/admin.css'
+import { useEffect, useState } from "react";
+import { api } from "../../../helpers/api";
 
 function One() {
 
+
+  const [data, setdata] = useState([]);
+
+  useEffect(() => {
+    api.get('/skills')
+        .then((response) => {
+              console.log(response.data)
+            setdata(response.data)
+        })
+        .catch((error) => {
+             console.log(error)
+        })
+}, [])
+
+
+
+const Deleteskills = (id) => {
+  console.log(id);
+  api.delete(`/skills/${id}`)
+      
+      .catch((error) => {
+          console.log(error)
+      })
+}
 
 
     return (
@@ -25,50 +51,39 @@ function One() {
             
             <div className="sales-boxes">
               <div className="recent-sales box">
-              
-                <div className="sales-details">
-                  <ul className="details">
-                    <li className="topic">Code</li>
-                    <li>
-                      <a href="./update"></a>
-                    </li>
-                  </ul>
-                  <ul className="details">
-                    <li className="topic">Discount Value</li>
-                    <li>
-                      <a href="./update">%</a>
-                    </li>
-                  </ul>
-                  <ul className="details">
-                    <li className="topic">Expiration Date</li>
-                    <li>
-                      <a href="./update"></a>
-                    </li>
-                  </ul>
-                  <ul className="details">
-                    <li className="topic">Permitted Products </li>
-                    <li>
-                      <a href="./update"></a>
-                    </li>
-                  </ul>
-                  <ul className="details text-center">
-                    <li className="topic">Action</li>
-                    <li>
-                      <button   className="text-danger px-2">
-                        update
-                      </button>
-                      <button   className="text-danger px-2">
-                        Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                      
-              </div>
+              {
+        data.map((data)=>(
+            <div className="sales-details">
+              <ul className="details">
+                <li className="topic">BackEnd Skills</li>
+                <li>
+                  <a href="./update">{data.backend}</a>
+                </li>
+              </ul>
+              <ul className="details">
+                <li className="topic">Font Skills</li>
+                <li>
+                  <a href="./update">{data.frontend}</a>
+                </li>
+              </ul>
+             
+              <ul className="details text-center">
+                <li className="topic">Action</li>
+                <li>
+                 
+                  <button  onClick={() => { Deleteskills(data._id) }} className="text-danger px-2">
+                    Delete
+                  </button>
+                </li>
+              </ul>
             </div>
+                   ))
+                }
           </div>
-        </>
-      );
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default One
